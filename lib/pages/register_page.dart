@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:chat_app/widgets/custome_input.dart';
 import 'package:provider/provider.dart';
 import '../services/auth_services.dart';
+import '../services/socket_services.dart';
 import '../widgets/custome_label.dart';
 import '../widgets/logo.dart';
 
@@ -58,6 +59,7 @@ class __FormState extends State<_Form> {
   @override
   Widget build(BuildContext context) {
     final authServices = Provider.of<AuthServices>(context);
+    final socketServices = Provider.of<SocketServices>(context);
     return Container(
       margin: const EdgeInsets.only(top: 40),
       padding: const EdgeInsets.symmetric(horizontal: 50),
@@ -90,6 +92,7 @@ class __FormState extends State<_Form> {
                           passwordCtrl.text.trim());
 
                       if (register == true) {
+                        socketServices.conectar();
                         Navigator.pushReplacementNamed(context, 'usuarios');
                       } else {
                         mostraAlerta(context, 'Error en el registro', register);
